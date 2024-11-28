@@ -1,6 +1,6 @@
 # Invetigation on Cooking Minutes
 ## Introduction
-Cooking the project
+Cooking
 ## Data Cleaning and Exploratory Data Analysis
 
 ## Assessment of Missingness
