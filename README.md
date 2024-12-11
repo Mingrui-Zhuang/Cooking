@@ -60,8 +60,8 @@ We first explored the distribution of Number of Steps (`n_steps`) by histogram:
 
 <iframe
   src="assets/Univariate_1.html"
-  width="500"
-  height="300"
+  width="800"
+  height="600"
   frameborder="0"
 ></iframe>
 
@@ -71,8 +71,8 @@ Then we explored the distribution of of Minutes (`minutes`) by Box Plot :
 
 <iframe
   src="assets/Univariate_2.html"
-  width="500"
-  height="300"
+  width="700"
+  height="400"
   frameborder="0"
 ></iframe>
 
