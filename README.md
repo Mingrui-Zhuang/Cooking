@@ -122,8 +122,8 @@ We looked at the distributions of `minutes` separately for missing or not, and c
 
 <iframe
   src="assets/Missing_1.html"
-  width="650"
-  height="450"
+  width="600"
+  height="400"
   frameborder="0"
 ></iframe>
 
@@ -145,8 +145,8 @@ Here is a distribution of `n_ingredients` conditional on missingness of `descrip
 
 <iframe
   src="assets/Missing_3.html"
-  width="620"
-  height="420"
+  width="600"
+  height="400"
   frameborder="0"
 ></iframe>
 
@@ -154,8 +154,8 @@ The observed KS statistic is 0.1641, with p-value  0.012. This is a low p-value 
 
 <iframe
   src="assets/Missing_4.html"
-  width="850"
-  height="650"
+  width="820"
+  height="620"
   frameborder="0"
 ></iframe>
 
@@ -173,8 +173,8 @@ After a permutation test with 10,000 simulations, the observed correlation is 0.
 
 <iframe
   src="assets/Hypothesis_1.html"
-  width="850"
-  height="650"
+  width="820"
+  height="620"
   frameborder="0"
 ></iframe>
 
@@ -223,7 +223,7 @@ We perform a permutation test by shuffling the labels (whether a recipe was subm
 
 <iframe
   src="assets/Fairness_1.html"
-  width="850"
-  height="650"
+  width="820"
+  height="620"
   frameborder="0"
 ></iframe>
