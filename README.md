@@ -226,6 +226,7 @@ For our final model, we used `'n_steps'`,`'n_ingredients'`, `'tags'`, and `'ingr
 2. We grouped some of the less common categories together under a general label to reduce the number of sparse categories to improve model performance. For example, we grouped `'tag_low-sodium'`, `'tag_low-cholesterol'`, `'tag_low-protein'`, and `'tag_low-saturated-fat'` into a single label called `'low-in-something'`.
 3. We transformed the `'n_steps'` Feature into `'sqrt_n_steps'` using square root. Since we found that the relationship between the number of steps and cooking time is not strictly linear, we used square root transformation to help the model capture this relationship.
 4. We removed some highly correlated features after one-hot encoding. In the heatmap, we removed one feature in any single pair of features with r greater than 0.85. The correlated features can cause multicollinearity, which can affect the stability of our model and make the coefficients hard to interpret.
+5. We removed tags that explicitly describe minutes for the reason talked before.
 
 We ran three different models on the training set: Polynomial Regression, Random Forest Regression and finally back to Linear Regression, and we choose linear regression as our final model. 
 
