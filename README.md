@@ -114,9 +114,9 @@ We believe that the missingness of the `'review'` column can be NMAR, which mean
 ### Missingness Dependency
 Now we focus on the missingness of `description` in the dataframe by testing the dependency of its missingness on `'minutes'` and `'n_ingredients'`.
 
-**H<sub>0</sub>**: The distribution of preparation time (`'minutes'`) is independent of whether the `description` is missing.
+**H<sub>0</sub>**: The distribution of preparation time (`'minutes'`) is independent of whether the `'description'` is missing.
 
-**H<sub>a</sub>**: The distribution of preparation time (`'minutes'`) is dependent on whether the `description` is missing.
+**H<sub>a</sub>**: The distribution of preparation time (`'minutes'`) is dependent on whether the `'description'` is missing.
 
 Test Statistic:  Kolmogorov-Smirnov statistic between group of minutes with and without missing description
 
@@ -142,9 +142,9 @@ The observed KS statistic is 0.0796, with p-value 0.626. This is a high p-value,
 
 Then we took a KS Permutation Test with n_ingredients:
 
-**H<sub>0</sub>**: The distribution of number of ingredients (`'n_ingredients'`) is independent of whether the `description` is missing.
+**H<sub>0</sub>**: The distribution of number of ingredients (`'n_ingredients'`) is independent of whether the `'description'` is missing.
 
-**H<sub>a</sub>**: The distribution of number of ingredients (`'n_ingredients'`) is dependent on whether the `description` is missing.
+**H<sub>a</sub>**: The distribution of number of ingredients (`'n_ingredients'`) is dependent on whether the `'description'` is missing.
 
 **Test Statistic**:  Kolmogorov-Smirnov statistic between group of n_ingredients with and without missing description
 
@@ -159,7 +159,7 @@ Here is a distribution of `n_ingredients` conditional on missingness of `descrip
   frameborder="0"
 ></iframe>
 
-The observed KS statistic is 0.1641, with p-value  0.012. This is a low p-value below the common significance threshold (0.05), meaning that only 1.2% of the KS statistics from the permuted datasets are greater than or equal to the observed KS statistic. We **Reject** the null hypothesis, and conclude that the missingness in the description column is not random with respect to n_ingredients. There maybe a possible systematic relationship between the number of ingredients in a recipe and whether its description is missing.
+The observed KS statistic is 0.1641, with p-value  0.012. This is a low p-value below the common significance threshold (0.05), meaning that only 1.2% of the KS statistics from the permuted datasets are greater than or equal to the observed KS statistic. We **reject** the null hypothesis, and conclude that the missingness in the description column is not random with respect to n_ingredients. There maybe a possible systematic relationship between the number of ingredients in a recipe and whether its description is missing.
 
 <iframe
   src="assets/Missing_4.html"
@@ -172,8 +172,11 @@ The observed KS statistic is 0.1641, with p-value  0.012. This is a low p-value 
 Since our project is centered around what features affect the cooking time, our test question focuses on whether a linear relationship exists between n_steps and minutes. 
 
 **H<sub>0</sub>**: There is no significant linear relationship between the number of steps (`'n_steps'`) and cooking time (`'minutes'`).
+
 **H<sub>a</sub>**: There is a significant linear relationship between the number of steps (`'n_steps'`) and cooking time (`'minutes'`).
+
 **Test Statistic**:  Pearson’s Correlation Coefficient (r)
+
 **Significance Level**: 0.01
 
 We choose a permutation test because it's non-parametric and doesn't make assumptions about the distribution of the data; We choose a smaller significance level (α=0.01) to decrease the probability of making a Type I error, setting a stricter threshold for rejecting the null; We choose the Pearson's correlation because it measures the strength and direction of the linear relationship between two continuous variables. 
@@ -217,15 +220,18 @@ We ran three different models on the training set: Polynomial Regression, Random
 
 The final model showed a significant improvement over the baseline model. Unlike the baseline linear regression model, which struggled to explain the variance in minutes with an R² of just 0.03, the final model achieved a much better performance, reducing the RMSE from 80.04 to 72.69 and increasing the R² to 0.18. This improvement was largely driven by the well-engineered features. The final model incorporated features such as the square root of the number of steps (sqrt_n_steps) to capture non-linear relationships, as well as one-hot encoded tags and ingredients, which  allowed the model to better account for recipe complexity and specific attributes.
 
-In other two models, we use MAE as our matric to penalizes all errors equally, and we used GridSearchCV with 5-fold cross-validation to find the best hyperparameters. The best hyperparameter for Polynomial Regression is `'poly_features__degree': 6`, showing that introducing non-linearity did not lead to substantial performance gains. The best hyperparameter for Random Forest Regression is `'model__max_depth': 100`, `'model__min_samples_split': 10`, `'model__n_estimators': 50`, which provided similar results to polynomial regression, indicating that the additional complexity didn't significantly outperform the baseline model. One potential reason is that relationship between minutes and predictors (n_steps, n_ingredients) is  linear, adding unnecessary complexity leads to worse performance.
+In other two models, we use MAE as our matric to penalizes all errors equally, and we used GridSearchCV with 5-fold cross-validation to find the best hyperparameters. The best hyperparameter for Polynomial Regression is `'poly_features__degree': 6`, showing that introducing non-linearity did not lead to substantial performance gains. The best hyperparameter for Random Forest Regression is `'model__max_depth': 100`, `'model__min_samples_split': 10`, `'model__n_estimators': 50`, which provided similar results to polynomial regression, indicating that the additional complexity didn't significantly outperform the baseline model. One potential reason is that relationship between minutes and predictors (`'n_steps'`, `'n_ingredients'`) is  linear, adding unnecessary complexity leads to worse performance.
 
 
 ## Fairness Analysis
 We want to check if the model perform the same for recipes submitted before 2013 and recipes submitted after 2013.
 
 **H<sub>0</sub>**: The model is fair. The RMSE for recipes submitted before 2013 and after 2013 is roughly the same, and any observed differences are due to random chance.
+
 **H<sub>a</sub>**: The model is unfair. The RMSE for recipes submitted before 2013 is significantly different from the RMSE for recipes submitted after 2013.
+
 **Test Statistic**: absolute difference in RMSE between the two groups (recipes submitted before 2013 and after 2013)
+
 **Significance Level**: 0.05
 
 We perform a permutation test by shuffling the labels (whether a recipe was submitted before or after 2013) 1000 times and calculating the RMSE difference for each permutation. The resulting observed RMSE difference is 21.089, with p-value 0.0. Since it's far below the significance level of 0.05, we **reject the null hypothesis**, and conclude that the model is unfair. The model performs different for recipes submitted before 2013 and after 2013.
