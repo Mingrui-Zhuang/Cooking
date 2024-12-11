@@ -135,9 +135,9 @@ Now we focus on the missingness of `description` in the dataframe by testing the
 
 **H<sub>a</sub>**: The distribution of preparation time (`'minutes'`) is dependent on whether the `'description'` is missing.
 
-Test Statistic:  Kolmogorov-Smirnov statistic between group of minutes with and without missing description
+**Test Statistic**:  Kolmogorov-Smirnov statistic between group of minutes with and without missing description
 
-Significance Level: 0.05
+**Significance Level**: 0.05
 
 We looked at the distributions of `minutes` separately for missing or not, and check to see if they are similar.
 
