@@ -228,7 +228,7 @@ For our final model, we used `'n_steps'`,`'n_ingredients'`, `'tags'`, and `'ingr
 4. We removed some highly correlated features after one-hot encoding. In the heatmap, we removed one feature in any single pair of features with r greater than 0.85. The correlated features can cause multicollinearity, which can affect the stability of our model and make the coefficients hard to interpret.
 5. We removed tags that explicitly describe minutes for the reason talked before.
 
-We ran three different models on the training set: Polynomial Regression, Random Forest Regression and finally back to Linear Regression, and we choose linear regression as our final model. 
+We ran three different models on the training set: Polynomial Regression, Random Forest Regression, and Linear Regression, and we choose linear regression as our final model. 
 
 | Model                | RMSE (Train) | RMSE (Test) | R²        |
 |----------------------|--------------|-------------|-----------|
