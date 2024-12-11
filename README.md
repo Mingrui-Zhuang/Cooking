@@ -5,8 +5,7 @@ Cooking is a universal activity that connects people across cultures, lifestyles
 
 We choose two dataset consisting of [recipes and ratings posted since 2008](ttps://food.com/) to analyze this question. 
 
-> blockquote 
-The first dataset, Recipes Dataset, contains 83782 rows, where each row is a unique recipes, and 10 columns including the following information.
+The first dataset, Recipes Dataset, contains 83782 rows, where each row is a unique recipes, and 10 columns including the following information:
 
 | Column          | Description                       |
 |-----------------|-----------------------------------|
@@ -25,29 +24,29 @@ The first dataset, Recipes Dataset, contains 83782 rows, where each row is a uni
 
 The second dataset, Ratings Dataset, contains 731927 rows, where each row is a review from the user, and 5 columns including the following information:
 
-| Column       | Description            |
-|--------------|------------------------|
-| `user_id`    | User ID                |
-| `recipe_id`  | Recipe ID              |
-| `date`       | Date of interaction    |
-| `rating`     | Rating given           |
-| `review`     | Review text            |
+| Column          | Description                   |
+|-----------------|-------------------------------|
+| `user_id`       | User ID                       |
+| `recipe_id`     | Recipe ID                     |
+| `date`          | Date of interaction           |
+| `rating`        | Rating given                  |
+| `review`        | Review text                   |
 
 
 ## Data Cleaning and Exploratory Data Analysis
 ### Data Cleaning
 To prepare the dataset for meaningful and accurate analysis, we take several steps to address inconsistencies, missing values, and outliers.
 
-1. Performed a left merge between the recipes and interactions datasets. In this way, we preserved all recipes while including interaction data where available, enabling analysis on recipes with ratings.
+1. Performed a **left merge** between the recipes and interactions datasets. In this way, we preserved all recipes while including interaction data where available, enabling analysis on recipes with ratings.
 2. Replaced all ratings of 0 with `np.nan`. Since the rating is on a scale from 1 to 5, 0 ratings likely stem from the absence of user reviews. Replacing the 0 values will prevent skewing of averages due to artificial zero values, ensuring accurate computation of the avg_rating column.
-3. Created a new column, `avg_rating`, by calculating the mean rating for each recipe using the name column.
+3. Created a new column, `'avg_rating'`, by calculating the mean rating for each recipe using the name column.
 We can assumes recipes with higher ratings are more positively received, which enabled comparisons between recipes based on user feedback.
-4. Converted the `submitted` and `date` columns to datetime format, which are more meaningful for time-based analyses.
-5. Converted the `tags` and `ingredients` columns from string to lists, which enabled further analysis.
+4. Converted the `'submitted'` and `'date'` columns to datetime format, which are more meaningful for time-based analyses.
+5. Converted the `'tags'` and `'ingredients'` columns from string to lists, which enabled further analysis.
 6. Filtered out extreme values based on the following thresholds:
-	- minutes ≤ 720 (12 hours)
-	- n_ingredients ≤ 20
-	- n_steps ≤ 30
+	- `'minutes'` ≤ 720 (12 hours)
+	- `'n_ingredients'` ≤ 20
+	- `'n_steps'` ≤ 30
 	Recipes with excessively high cooking times, steps, or ingredients likely represent data entry errors or rare anomalies not reflective of typical recipes.
 
 Our cleaned dataFrame contains 227834 rows and 18 columns. Here are the first 5 rows of recipes of our cleaned dataframe. Scroll right to view all the columns.
@@ -56,7 +55,7 @@ Our cleaned dataFrame contains 227834 rows and 18 columns. Here are the first 5 
 
 
 ### Univariate Analysis
-We first explored the distribution of Number of Steps (`n_steps`) by histogram:
+We first explored the distribution of Number of Steps (`'n_steps'`) by histogram:
 
 <iframe
   src="assets/Univariate_1.html"
@@ -67,7 +66,7 @@ We first explored the distribution of Number of Steps (`n_steps`) by histogram:
 
    The majority of recipes have around 4–10 steps, suggesting that most recipes are designed to be relatively straightforward.
 
-Then we explored the distribution of of Minutes (`minutes`) by Box Plot :
+Then we explored the distribution of of Minutes (`'minutes'`) by Box Plot :
 
 <iframe
   src="assets/Univariate_2.html"
@@ -79,7 +78,7 @@ Then we explored the distribution of of Minutes (`minutes`) by Box Plot :
    Most recipes have cooking times clustered within a short range (between 0–125 minutes). There are significant outliers extending beyond 200 minutes, which represent recipes requiring much longer cooking times.
 
 ### Bivariate Analysis
-We further investigated the two variables that are most relevant to cooking minutes: number of steps (n_steps), and numbers of ingredients (`n_ingredients`).
+We further investigated the two variables that are most relevant to cooking minutes: number of steps (`'n_steps'`), and numbers of ingredients (`'n_ingredients'`).
 
 <iframe
   src="assets/Bivariate_1.html"
@@ -88,7 +87,7 @@ We further investigated the two variables that are most relevant to cooking minu
   frameborder="0"
 ></iframe>
 
-   This scatter plot shows the relationship between the square root of the number of steps (`test_n_steps`) and the median time (`minutes`). By applying the square root to the number of steps, we can compress the exponential-like growthsee to a more linear trend. This trend indicates a positive correlation, where more steps generally correspond to longer median times, which suggests that recipes with more steps tend to take longer.
+   This scatter plot shows the relationship between the square root of the number of steps (`'test_n_steps'`) and the median time (`'minutes'`). By applying the square root to the number of steps, we can compress the exponential-like growthsee to a more linear trend. This trend indicates a **positive correlation**, where more steps generally correspond to longer median times, which suggests that recipes with more steps tend to take longer.
 
 <iframe
   src="assets/Bivariate_2.html"
@@ -97,7 +96,7 @@ We further investigated the two variables that are most relevant to cooking minu
   frameborder="0"
 ></iframe>
 
-   This bar chart illustrates the average time required (`minutes`) for recipes with varying numbers of ingredients (`n_ingredients`), grouped by whether the recipe has a rating of 5. Recipes with higher numbers of ingredients tend to take longer, and those rated 5 (true) often require more time compared to lower-rated recipes. This highlights that more complex recipes (higher ingredients) often lead to higher ratings but demand more time.
+   This bar chart illustrates the average time required (`'minutes'`) for recipes with varying numbers of ingredients (`'n_ingredients'`), grouped by whether the recipe has a rating of 5. Recipes with higher numbers of ingredients tend to take longer, and those rated 5 (`'true'`) often require more time compared to lower-rated recipes. This highlights that more complex recipes (higher ingredients) often lead to higher ratings but demand more time.
 
 ### Interesting Aggregates
 We explored the trends of minutes over time by comparing total cooking minutes across publish_year and rating_year.
@@ -110,14 +109,19 @@ Form the dataframe, we find two obvious patterns.
 
 ## Assessment of Missingness
 ### NMAR Analysis
-We believe that the missingness of the `review` column can be NMAR, which means that the missing review value itself is a key factor influencing whether it is missing. Users who were dissatisfied or indifferent specifically chose not to leave a review, because they felt unmotivated to review or had some other personal reason (e.g., they didn’t want to type letters at all). This would suggest that the missingness is dependent on the unobserved missing value (the review itself). Additional data can be collected on user engagement data, where information on how often users interact with the platform could help determine if certain users are more likely to leave reviews. For example, user's frequency of interactions, recipe views, and time spent on the platform may give us some missingness pattern about review.
+We believe that the missingness of the `'review'` column can be NMAR, which means that the missing review value itself is a key factor influencing whether it is missing. Users who were **dissatisfied or indifferent** specifically chose not to leave a review, because they felt unmotivated to review or had some other personal reason (e.g., they didn’t want to type letters at all). This would suggest that the missingness is dependent on the unobserved missing value (the review itself). Additional data can be collected on user engagement data, where information on how often users interact with the platform could help determine if certain users are more likely to leave reviews. For example, user's frequency of interactions, recipe views, and time spent on the platform may give us some missingness pattern about review.
 
 ### Missingness Dependency
 Now we focus on the missingness of `description` in the dataframe by testing the dependency of its missingness on `minutes` and `n_ingredients`.
-$H_0$: The distribution of preparation time (`minutes`) is independent of whether the `description` is missing.
-$H_a$: The distribution of preparation time (`minutes`) is dependent on whether the `description` is missing.
+
+**H~0~**: The distribution of preparation time (`'minutes'`) is independent of whether the `description` is missing.
+
+**H<sub>a</sub>**: The distribution of preparation time (`'minutes'`) is dependent on whether the `description` is missing.
+
 Test Statistic:  Kolmogorov-Smirnov statistic between group of minutes with and without missing description
+
 Significance Level: 0.05
+
 We looked at the distributions of `minutes` separately for missing or not, and check to see if they are similar.
 
 <iframe
