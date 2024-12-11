@@ -1,5 +1,6 @@
-# Invetigation on Cooking Minutes
+# Analyzing the Impact of Recipe Features on Cooking Times
 Author: Mingrui Zhuang
+
 ## Introduction
 Cooking is a universal activity that connects people across cultures, lifestyles, and skill levels, yet the time it takes to prepare meals can often be a challenge. However, **what features in recipes affect the cooking times?** Understanding this question can help both beginner and experienced cooks better plan their meals, save time, and make informed decisions in the kitchen. By analyzing recipe elements such as the number of steps, ingredients, and tags like "baking" or "slow-cooked," we can uncover patterns that influence cooking durations. This insight not only allows readers to select recipes that fit their schedules but also deepens their knowledge of culinary techniques and make the experience more enjoyable.
 
