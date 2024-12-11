@@ -122,8 +122,8 @@ We looked at the distributions of `minutes` separately for missing or not, and c
 
 <iframe
   src="assets/Missing_1.html"
-  width="600"
-  height="400"
+  width="650"
+  height="450"
   frameborder="0"
 ></iframe>
 
@@ -145,8 +145,8 @@ Here is a distribution of `n_ingredients` conditional on missingness of `descrip
 
 <iframe
   src="assets/Missing_3.html"
-  width="600"
-  height="400"
+  width="500"
+  height="300"
   frameborder="0"
 ></iframe>
 
